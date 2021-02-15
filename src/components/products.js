@@ -1,16 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Card ,ListItem ,Collapse } from "@material-ui/core";
-
+import { Card, ListItem, Button } from "@material-ui/core";
+import { addItem } from "../store/cart"
 const Status = props => {
     console.log(props.categoryState.data)
 
     return (
         <Card>
-            <ul>
-                {props.categoryState.data.products.map(ele => {
+            <ul style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+                {props.categoryState.data.products.map((ele, i) => {
                     if (ele.category === props.categoryState.data.activeCategory)
-                        return <ListItem  id={ele.name} key={ele.name}>{ele.name} {ele.price} </ListItem >
+                        return <ListItem style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly",padding:20}} id={ele.name} key={i}>
+                            <div>
+                                <div style={{ textAlign: "center" }}>
+                                   <h3> {ele.name} &nbsp; {ele.price}$</h3>
+                                </div>
+                                <div>
+                                    <Button variant="contained" color="primary" onClick={() => props.addItem(ele.name)}> Add to Cart</Button>
+                        &nbsp;
+                        <Button variant="contained" color="primary" >View Details</Button>
+                                </div>
+                            </div>
+                        </ListItem >
                 })}
             </ul>
         </Card>
@@ -18,8 +29,15 @@ const Status = props => {
 }
 
 
+
+
 const mapStateToProps = state => ({
     categoryState: state
 });
 
-export default connect(mapStateToProps)(Status);
+const mapDispatchToProps = { addItem }
+
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Status);
