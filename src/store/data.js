@@ -28,8 +28,11 @@ export default (state = initialState, action) => {
         case "catigories":
             if (payload.toLowerCase() == "electronics" || payload.toLowerCase() == "clothing" || payload.toLowerCase() == "food")
                 return { ...state, activeCategory: payload }; // return copy alwayyyyyyyyyyyyyyyyyss
+
+        case "GET":
+            return {}
         default:
-            return {...state};
+            return { ...state };
     }
 
 }
